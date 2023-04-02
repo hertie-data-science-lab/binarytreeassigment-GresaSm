@@ -45,7 +45,6 @@ class LinkedBinaryTree(BinaryTree):
 
         if p._node._parent is p._node:
             raise ValueError('p is no longer valid')
-            return p._node
         return p._node
 
     def _make_position(self, node):
@@ -119,7 +118,7 @@ class LinkedBinaryTree(BinaryTree):
         """
 
         node = self._validate(p)
-        if node._right is not None: raise ValueError('Left child exists')
+        if node._left is not None: raise ValueError('Left child exists')
         self._size += 1
         node._left = self._Node(e, node)
         pos = self._make_position(node._left)
@@ -192,5 +191,62 @@ class LinkedBinaryTree(BinaryTree):
             node._right = t2.root
             t2._root = None
             t2._size = 0
-            
+
+    def preorder (self):
+        """Generate a preorder iteration of positions in the tree."""
+        if not self.is_empty():
+            for p in self._subtree_preorder(self.root()):
+                yield p
+    
+    def _subtree_preorder(self, p):
+        """Generate a preorder interation of positions in subtree rooted at p"""
+        yield p
+        for c in self.children(p):
+            for other in self._subtree_preorder(c):
+                yield other
+
+    def positions(self):
+        """Generate an iteration of the tree's positions."""
+        return self.preorder()
+
+    def postorder(self):
+        """Generate a postorder interation of positions in the tree."""
+        if not self.is_empty():
+            for p in self._subtree_postorder(self.root()):
+                yield p
+
+    def _subtree_postorder(self, p):
+        """Generate a postorder interation of positions in subtree rooted at p."""
+        for c in self.children(p):
+            for other in self._subtree_postorder(c):
+                yield other
+        yield p
+
+    def breadthfirst(self):
+        """Generate a breadth-first interation of the positions of the tree."""
+        if not self.is_empty ():
+            fringe = LinkedQueue()
+            fringe.enqueue(self.root()) 
+            while not fringe.is_empty():
+                p = fringe.dequeue()
+                yield p
+                for c in self.children(p):
+                    fringe.enqueue(c)
+
+    def inorder (self):
+        if not self.is_empty():
+            for p in self._subtree_inorder(self.root()):
+                yield p
+
+    def _subtree_inorder(self,p):
+        if self.left(p) is not None:
+            for other in self._subtree_inorder (self.left(p)):
+                yield other
+            yield p
+            if self.right(p) is not None:
+                for other in self._subtree_inorder(self.right(p)):
+                    yield other 
+
+    def positions (self):
+        return self.inorder()          
 

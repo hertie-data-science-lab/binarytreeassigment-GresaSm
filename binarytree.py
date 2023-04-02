@@ -17,7 +17,7 @@ class BinaryTree(Tree):
         
         Return None if p does not have a left child.
         """
-        pass
+        raise NotImplementedError ('must be implemented by subclass')
     
     @abstractmethod
     def right(self, p):
@@ -25,7 +25,7 @@ class BinaryTree(Tree):
         
         Return None if p does not have a right child.
         """
-        pass
+        raise NotImplementedError ('must be implemented by subclass')
     
     def sibling(self, p):
         """Return a Position representing p's sibling (or None if no sibling)."""

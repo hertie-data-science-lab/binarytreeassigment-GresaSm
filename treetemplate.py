@@ -16,12 +16,12 @@ class Tree(ABC):
         @abstractmethod
         def element(self):
             """Return the element stored at this Position."""
-            pass
+            raise NotImplementedError('must be implemented by subclass')
         
         @abstractmethod
         def __eq__(self, other):
             """Return True if other Position represents the same location."""
-            pass
+            raise NotImplementedError('must be implemented by subclass')
         
         def __ne__(self, other):
             """Return True if other does not represent the same location."""
@@ -30,27 +30,27 @@ class Tree(ABC):
     @abstractmethod
     def root(self):
         """Return Position representing the tree's root (or None if empty)."""
-        pass
+        raise NotImplementedError('must be implemented by subclass')
     
     @abstractmethod
     def parent(self, p):
         """Return Position representing p's parent (or None if p is root)."""
-        pass
+        raise NotImplementedError('must be implemented by subclass')
     
     @abstractmethod
     def num_children(self, p):
         """Return the number of children that Position p has."""
-        pass
+        raise NotImplementedError('must be implemented by subclass')
     
     @abstractmethod
     def children(self, p):
         """Generate an iteration of Positions representing p's children."""
-        pass
+        raise NotImplementedError('must be implemented by subclass')
     
     @abstractmethod
     def __len__(self):
         """Return the total number of elements in the tree."""
-        pass
+        raise NotImplementedError('must be implemented by subclass')
     
     def is_root(self, p):
         """Return True if Position p represents the root of the tree."""
@@ -71,7 +71,7 @@ class Tree(ABC):
             return 1 + self.depth(self.parent(p))
     
     def _height1(self):
-        return max(self.depth(p) for p in self.positions if self.is_leaf(p))
+        return max(self.depth(p) for p in self.positions() if self.is_leaf(p))
         
     def _height2(self, p):
         if self.is_leaf(p):

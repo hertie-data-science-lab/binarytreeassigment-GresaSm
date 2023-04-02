@@ -30,3 +30,15 @@ lbt.add_right(r, 7)
 print(len(lbt))
 print(lbt.height(lbt.root()))
 print()
+
+
+# test the methods of the tree
+
+print(lbt.root().element())
+print(lbt.left(lbt.root()).element())
+print(lbt.right(lbt.root()).element())
+print(lbt.left(lbt.left(lbt.root())).element())
+print(lbt.right(lbt.left(lbt.root())).element())
+print(lbt.left(lbt.right(lbt.root())).element())
+print(lbt.right(lbt.right(lbt.root())).element())
+print()
